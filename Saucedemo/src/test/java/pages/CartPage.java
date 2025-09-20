@@ -10,21 +10,20 @@ import org.openqa.selenium.support.PageFactory;
 public class CartPage {
 	
 	 WebDriver driver;
-
-	    public CartPage(WebDriver driver) {
-	        this.driver = driver;
-	        PageFactory.initElements(driver, this);
-	    }
-
-	    // Locators
+	 
+	 // Locators
 	    @FindBy(className = "inventory_item_name")
 	    List<WebElement> cartItems;
 
-	    @FindBy(id = "remove-sauce-labs-backpack")
-	    WebElement removeBackpackBtn;
+	    @FindBy(id = "remove-sauce-labs-backpack")WebElement removeBackpackBtn;
 
-	    @FindBy(id = "checkout")
-	    WebElement checkoutButton;
+	    @FindBy(id = "checkout")WebElement checkoutButton;
+
+	    public CartPage(WebDriver driver) {
+	        PageFactory.initElements(driver, this);
+	    }
+
+	   
 
 	    // Methods
 	    public int getNumberOfItemsInCart() {

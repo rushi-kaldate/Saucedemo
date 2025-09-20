@@ -10,39 +10,29 @@ public class CheckoutPage {
 	 WebDriver driver;
 
 	    public CheckoutPage(WebDriver driver) {
-	        this.driver = driver;
 	        PageFactory.initElements(driver, this);
 	    }
 
 	    // Checkout Step One Locators
-	    @FindBy(id = "first-name")
-	    WebElement firstNameInput;
+	    @FindBy(id = "first-name")WebElement firstNameInput;
 
-	    @FindBy(id = "last-name")
-	    WebElement lastNameInput;
+	    @FindBy(id = "last-name")WebElement lastNameInput;
 
-	    @FindBy(id = "postal-code")
-	    WebElement zipCodeInput;
+	    @FindBy(id = "postal-code")WebElement zipCodeInput;
 
-	    @FindBy(id = "continue")
-	    WebElement continueButton;
+	    @FindBy(id = "continue")WebElement continueButton;
 
-	    @FindBy(css = "h3[data-test='error']")
-	    WebElement errorMessage;
+	    @FindBy(css = "h3[data-test='error']")WebElement errorMessage;
 
 	    // Checkout Step Two Locators
-	    @FindBy(className = "inventory_item_name")
-	    WebElement itemNameInCheckout;
+	    @FindBy(className = "inventory_item_name")WebElement itemNameInCheckout;
 
-	    @FindBy(className = "summary_subtotal_label")
-	    WebElement itemTotalLabel;
+	    @FindBy(className = "summary_subtotal_label")WebElement itemTotalLabel;
 
-	    @FindBy(id = "finish")
-	    WebElement finishButton;
+	    @FindBy(id = "finish")WebElement finishButton;
 
 	    // Checkout Complete Locators
-	    @FindBy(className = "complete-header")
-	    WebElement thankYouMessage;
+	    @FindBy(className = "complete-header")WebElement thankYouMessage;
 
 	    // Checkout Step One Methods
 	    public void enterFirstName(String firstName) {

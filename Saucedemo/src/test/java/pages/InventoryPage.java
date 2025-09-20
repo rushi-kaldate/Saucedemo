@@ -13,7 +13,6 @@ public class InventoryPage {
 	WebDriver driver;
 
     public InventoryPage(WebDriver driver) {
-        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
