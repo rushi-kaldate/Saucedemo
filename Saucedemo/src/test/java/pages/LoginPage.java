@@ -15,17 +15,13 @@ public class LoginPage {
 
 	
     // Locators (Page ke elements find karne ke liye)
-    @FindBy(id = "user-name")
-    WebElement usernameInput;
+    @FindBy(id = "user-name")WebElement usernameInput;
 
-    @FindBy(id = "password")
-    WebElement passwordInput;
+    @FindBy(id = "password")WebElement passwordInput;
 
-    @FindBy(id = "login-button")
-    WebElement loginButton;
+    @FindBy(id = "login-button")WebElement loginButton;
 
-    @FindBy(css = "h3[data-test='error']")
-    WebElement errorMessage;
+    @FindBy(css = "h3[data-test='error']")WebElement errorMessage;
 
     // Methods (Actions jo is page par kar sakte ho)
     public void enterUsername(String username) {
