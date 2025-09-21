@@ -90,6 +90,7 @@ public class PurchaseFlowTest extends BaseTest{
         
         System.out.println("Hii");
         System.out.println("Bye");
+		System.out.println("Alawys");
         
         // Verify item is in cart
         Assert.assertEquals(cartPage.getNumberOfItemsInCart(), 1, "Item not added to cart");
