@@ -1,0 +1,104 @@
+package tests;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import com.saucedemo.BaseTest;
+
+import pages.CartPage;
+import pages.CheckoutPage;
+import pages.InventoryPage;
+import pages.LoginPage;
+
+public class PurchaseFlowTest extends BaseTest{
+	
+	@Test(priority = 1)
+    public void completePurchaseFlow() {
+        // Initialize all page objects
+        LoginPage loginPage = new LoginPage(driver);
+        InventoryPage inventoryPage = new InventoryPage(driver);
+        CartPage cartPage = new CartPage(driver);
+        CheckoutPage checkoutPage = new CheckoutPage(driver);
+
+        // 1. Login
+        loginPage.loginToApp("standard_user", "secret_sauce");
+        Assert.assertTrue(inventoryPage.getProductCount() > 0, "Login failed");
+
+        // 2. Add product to cart
+        inventoryPage.clickAddToCartForFirstProduct();
+        
+        // 3. Go to cart
+        inventoryPage.clickCartIcon();
+        Assert.assertEquals(cartPage.getNumberOfItemsInCart(), 1, "Item not added to cart");
+        Assert.assertEquals(cartPage.getFirstCartItemName(), "Sauce Labs Backpack", "Wrong item in cart");
+
+        // 4. Proceed to checkout
+        cartPage.clickCheckout();
+
+        // 5. Fill checkout information
+        checkoutPage.fillCheckoutInformation("Test", "User", "12345");
+
+        // 6. Verify checkout overview
+        Assert.assertEquals(checkoutPage.getItemNameInOverview(), "Sauce Labs Backpack", "Wrong item in overview");
+        Assert.assertTrue(checkoutPage.getItemTotal().contains("29.99"), "Item total not correct");
+
+        // 7. Complete purchase
+        checkoutPage.clickFinish();
+
+        // 8. Verify order completion
+        Assert.assertEquals(checkoutPage.getThankYouMessage(), "Thank you for your order!", "Order not successful");
+    }
+
+    @Test(priority = 2)
+    public void checkoutInformationValidation() {
+        LoginPage loginPage = new LoginPage(driver);
+        InventoryPage inventoryPage = new InventoryPage(driver);
+        CartPage cartPage = new CartPage(driver);
+        CheckoutPage checkoutPage = new CheckoutPage(driver);
+
+        // Login and add item to cart
+        loginPage.loginToApp("standard_user", "secret_sauce");
+        inventoryPage.clickAddToCartForFirstProduct();
+        inventoryPage.clickCartIcon();
+        cartPage.clickCheckout();
+
+        // Try to continue without filling information
+        checkoutPage.clickContinue();
+        Assert.assertEquals(checkoutPage.getErrorMessage(), "Error: First Name is required", "Error message not displayed");
+
+        // Fill only first name
+        checkoutPage.enterFirstName("Test");
+        checkoutPage.clickContinue();
+        Assert.assertEquals(checkoutPage.getErrorMessage(), "Error: Last Name is required", "Error message not displayed");
+
+        // Fill first and last name
+        checkoutPage.enterLastName("User");
+        checkoutPage.clickContinue();
+        Assert.assertEquals(checkoutPage.getErrorMessage(), "Error: Postal Code is required", "Error message not displayed");
+    }
+
+    @Test(priority = 3)
+    public void removeItemFromCart() {
+        LoginPage loginPage = new LoginPage(driver);
+        InventoryPage inventoryPage = new InventoryPage(driver);
+        CartPage cartPage = new CartPage(driver);
+
+        // Login and add item to cart
+        loginPage.loginToApp("standard_user", "secret_sauce");
+        inventoryPage.clickAddToCartForFirstProduct();
+        inventoryPage.clickCartIcon();
+        
+        System.out.println("Hii");
+        System.out.println("Bye");
+		System.out.println("Alawys");
+        
+        // Verify item is in cart
+        Assert.assertEquals(cartPage.getNumberOfItemsInCart(), 1, "Item not added to cart");
+
+        // Remove item from cart
+        cartPage.removeFirstItemFromCart();
+
+        // Verify cart is empty
+        Assert.assertTrue(cartPage.isCartEmpty(), "Cart is not empty after removing item");
+    }
+}
