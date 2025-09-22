@@ -88,6 +88,7 @@ public class PurchaseFlowTest extends BaseTest{
         inventoryPage.clickAddToCartForFirstProduct();
         inventoryPage.clickCartIcon();
         
+        System.out.println("Hii");
         
         // Verify item is in cart
         Assert.assertEquals(cartPage.getNumberOfItemsInCart(), 1, "Item not added to cart");
